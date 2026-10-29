@@ -1,0 +1,60 @@
+{
+  "version": "0.7.0",
+  "build": "07",
+  "romBytes": 1048576,
+  "assembler": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "titleImage": {
+    "pixelsCompared": 47712,
+    "errors": 0,
+    "excluded": "Blinking prompt rectangle"
+  },
+  "attract": {
+    "seen": [
+      56,
+      58,
+      60,
+      62,
+      56
+    ],
+    "gameStartedWithoutInput": false
+  },
+  "input": {
+    "heldFireStayedOnFirstIntro": true,
+    "manualSceneTransitions": [
+      [
+        60,
+        3
+      ],
+      [
+        62,
+        3
+      ],
+      [
+        64,
+        0
+      ]
+    ]
+  },
+  "gameRestored": {
+    "scene": 64,
+    "phase": 0,
+    "engineReady": 1,
+    "song": 6,
+    "lives": 3,
+    "hp": 16,
+    "spriteControl": 32,
+    "backend": 4
+  },
+  "pal": {
+    "titleLimit": 500,
+    "holdLimit": 150,
+    "scene": 56,
+    "phase": 5
+  },
+  "creditInHtml": true,
+  "creditInRomMetadata": true,
+  "introStyle": "Original title logo, project-specific Italian story cards and VDP transitions"
+}

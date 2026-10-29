@@ -1,0 +1,95 @@
+{
+  "source": "Original arcade sprite indices and per-weapon YM palette snapshots",
+  "sprites": [
+    {
+      "name": "normal",
+      "rect": [
+        0,
+        32,
+        11,
+        1
+      ]
+    },
+    {
+      "name": "grenade",
+      "rect": [
+        16,
+        32,
+        5,
+        8
+      ]
+    },
+    {
+      "name": "photon",
+      "rect": [
+        32,
+        32,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "heavyR",
+      "rect": [
+        48,
+        32,
+        14,
+        9
+      ]
+    },
+    {
+      "name": "heavyL",
+      "rect": [
+        64,
+        32,
+        14,
+        9
+      ]
+    },
+    {
+      "name": "wideR",
+      "rect": [
+        80,
+        32,
+        16,
+        15
+      ]
+    },
+    {
+      "name": "wideL",
+      "rect": [
+        96,
+        32,
+        16,
+        15
+      ]
+    },
+    {
+      "name": "power",
+      "rect": [
+        112,
+        32,
+        14,
+        11
+      ]
+    },
+    {
+      "name": "wideOuterR",
+      "rect": [
+        160,
+        0,
+        14,
+        9
+      ]
+    },
+    {
+      "name": "wideOuterL",
+      "rect": [
+        176,
+        0,
+        14,
+        9
+      ]
+    }
+  ]
+}

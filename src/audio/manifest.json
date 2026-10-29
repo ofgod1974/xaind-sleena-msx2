@@ -1,0 +1,239 @@
+{
+  "romBytes": 1048576,
+  "captureSecondsPerCommand": 62.59916793589845,
+  "tracks": [
+    {
+      "command": 1,
+      "bytes": 16381,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 2,
+      "bytes": 19671,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 3,
+      "bytes": 49141,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 4,
+      "bytes": 17781,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 5,
+      "bytes": 18117,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 6,
+      "bytes": 16759,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 7,
+      "bytes": 16493,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 8,
+      "bytes": 18649,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 9,
+      "bytes": 35673,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 10,
+      "bytes": 17935,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 11,
+      "bytes": 17879,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 12,
+      "bytes": 9661,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 13,
+      "bytes": 9647,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 14,
+      "bytes": 7547,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 15,
+      "bytes": 14575,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 16,
+      "bytes": 13469,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 17,
+      "bytes": 44325,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 18,
+      "bytes": 43891,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 19,
+      "bytes": 34147,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 20,
+      "bytes": 4411,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 21,
+      "bytes": 7687,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 22,
+      "bytes": 9227,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 23,
+      "bytes": 14099,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 24,
+      "bytes": 3655,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 25,
+      "bytes": 3613,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 26,
+      "bytes": 3935,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 27,
+      "bytes": 3851,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 28,
+      "bytes": 4299,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    },
+    {
+      "command": 29,
+      "bytes": 5629,
+      "frames": 3596,
+      "sourceFrameRate": 57.444853,
+      "voices": 6,
+      "format": "duration, six MIDI notes, six volume levels, key-on mask; zero terminator"
+    }
+  ],
+  "note": "FM note/key-on/volume transcription. PSG/noise channels and exact 4-operator timbres remain separate fidelity work."
+}

@@ -1,0 +1,315 @@
+{
+  "build": "06",
+  "assembler": {
+    "errors": 0,
+    "warnings": 0,
+    "romBytes": 1048576
+  },
+  "checks": [
+    {
+      "name": "carrier-drop",
+      "pass": true,
+      "result": {
+        "weapon": 0,
+        "stance": 0,
+        "lives": 3,
+        "power": 1,
+        "hp": 16,
+        "score": [
+          0,
+          1,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "P-pickup",
+      "pass": true,
+      "result": {
+        "weapon": 2,
+        "stance": 0,
+        "lives": 3,
+        "power": 0,
+        "hp": 16,
+        "score": [
+          0,
+          1,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "extend-20000-and-score-carry",
+      "pass": true,
+      "result": {
+        "weapon": 0,
+        "stance": 0,
+        "lives": 4,
+        "power": 0,
+        "hp": 16,
+        "score": [
+          0,
+          0,
+          2
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "bullet-damage-keeps-weapon",
+      "pass": true,
+      "result": {
+        "weapon": 3,
+        "stance": 0,
+        "lives": 3,
+        "power": 0,
+        "hp": 15,
+        "score": [
+          0,
+          0,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "contact-damage-eight",
+      "pass": true,
+      "result": {
+        "weapon": 3,
+        "stance": 0,
+        "lives": 3,
+        "power": 0,
+        "hp": 8,
+        "score": [
+          0,
+          0,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "death-loses-upgrade-one-life",
+      "pass": true,
+      "result": {
+        "weapon": 0,
+        "stance": 0,
+        "lives": 2,
+        "power": 0,
+        "hp": 16,
+        "score": [
+          0,
+          0,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "normal consumed on hit",
+      "pass": true,
+      "result": []
+    },
+    {
+      "name": "heavy pierces",
+      "pass": true,
+      "result": [
+        [
+          1,
+          3,
+          120,
+          140,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "grenade explodes on hit",
+      "pass": true,
+      "result": [
+        [
+          1,
+          5,
+          120,
+          140,
+          0,
+          0,
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "grenade-ground-explosion",
+      "pass": true,
+      "result": [
+        [
+          1,
+          5,
+          120,
+          152,
+          0,
+          2,
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "prone-ducks-horizontal-bullet",
+      "pass": true,
+      "result": {
+        "weapon": 0,
+        "stance": 2,
+        "lives": 3,
+        "power": 0,
+        "hp": 16,
+        "score": [
+          0,
+          0,
+          0
+        ],
+        "state": 0
+      }
+    },
+    {
+      "name": "last-life-game-over",
+      "pass": true,
+      "result": {
+        "weapon": 0,
+        "stance": 0,
+        "lives": 0,
+        "power": 0,
+        "hp": 0,
+        "score": [
+          0,
+          0,
+          0
+        ],
+        "state": 2
+      }
+    },
+    {
+      "name": "crouch-left-aim",
+      "pass": true,
+      "result": [
+        1,
+        128
+      ]
+    }
+  ],
+  "weaponPatterns": [
+    {
+      "weapon": 0,
+      "projectileCount": 1,
+      "kinds": [
+        0
+      ],
+      "horizontalSpeeds": [
+        5
+      ],
+      "verticalSpeeds": [
+        0
+      ]
+    },
+    {
+      "weapon": 1,
+      "projectileCount": 2,
+      "kinds": [
+        0,
+        1
+      ],
+      "horizontalSpeeds": [
+        5,
+        2
+      ],
+      "verticalSpeeds": [
+        0,
+        253
+      ]
+    },
+    {
+      "weapon": 2,
+      "projectileCount": 2,
+      "kinds": [
+        2,
+        2
+      ],
+      "horizontalSpeeds": [
+        5,
+        5
+      ],
+      "verticalSpeeds": [
+        0,
+        254
+      ]
+    },
+    {
+      "weapon": 3,
+      "projectileCount": 1,
+      "kinds": [
+        3
+      ],
+      "horizontalSpeeds": [
+        4
+      ],
+      "verticalSpeeds": [
+        0
+      ]
+    },
+    {
+      "weapon": 4,
+      "projectileCount": 3,
+      "kinds": [
+        4,
+        4,
+        4
+      ],
+      "horizontalSpeeds": [
+        5,
+        5,
+        5
+      ],
+      "verticalSpeeds": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "graphicsStress": {
+    "projectiles": 9,
+    "seconds": 4,
+    "scroll": {
+      "writes": 48,
+      "busy": 0,
+      "active": 0,
+      "phases": 16
+    },
+    "pixelsCompared": 35758,
+    "pixelErrors": 0,
+    "interrupts": 241
+  },
+  "PAL": {
+    "machine": "MSX2E",
+    "backend": 4,
+    "weaponInitial": 4,
+    "musicStep": 1176,
+    "interrupts": 151,
+    "seconds": 3
+  },
+  "limitations": [
+    "Tests use RAM fixtures for collision and score boundary conditions",
+    "The first planet remains a cyclic technical section; original level routes, bosses and flight sections are not implemented",
+    "Weapon graphics use original sprite indices and palette captures; timings and hitboxes remain MSX adaptation values",
+    "Original carrier appearance is not reconstructed: current carriers use a marked soldier sprite",
+    "PSG sound effects are adaptations; music limitations are described in BUILD05.md",
+    "Hardware not tested; rendering rate varies substantially with bitmap projectile load"
+  ]
+}

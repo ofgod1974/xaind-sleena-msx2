@@ -1,0 +1,6 @@
+node_modules/
+symbols.txt
+*.lst
+*.sld
+.DS_Store
+Thumbs.db

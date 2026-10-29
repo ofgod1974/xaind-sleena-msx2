@@ -1,0 +1,109 @@
+{
+  "audio": [
+    {
+      "name": "PSG",
+      "mode": 0,
+      "samples": 114688,
+      "rms": 0.23215214768079742,
+      "peak": 0.42449599504470825
+    },
+    {
+      "name": "SCC",
+      "mode": 1,
+      "samples": 115712,
+      "rms": 0.14296348634487033,
+      "peak": 0.4817195236682892
+    },
+    {
+      "name": "MSX-MUSIC",
+      "mode": 2,
+      "samples": 116736,
+      "rms": 0.10778907960489154,
+      "peak": 0.3413458466529846
+    },
+    {
+      "name": "OPL4",
+      "mode": 4,
+      "samples": 114688,
+      "rms": 0.046422557494385924,
+      "peak": 0.16293247044086456
+    }
+  ],
+  "jumpSamples": [
+    [
+      1,
+      102,
+      251
+    ],
+    [
+      2,
+      78,
+      251
+    ],
+    [
+      2,
+      54,
+      254
+    ]
+  ],
+  "jumpLanding": {
+    "count": 0,
+    "y": 128,
+    "air": 0
+  },
+  "ntscStart": [
+    3109,
+    0
+  ],
+  "ntscEnd": [
+    3350,
+    89,
+    1
+  ],
+  "scroll": {
+    "writes": 128,
+    "busy": 0,
+    "active": 0,
+    "phases": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "pal": {
+    "interruptsInThreeSeconds": 150,
+    "step": 1176
+  },
+  "longTrack3": {
+    "irqBefore": 1615,
+    "irqAfter": 4317,
+    "bankBefore": 11,
+    "pointerBefore": 45008,
+    "bankAfter": 11,
+    "pointerAfter": 38246
+  },
+  "build": {
+    "errors": 0,
+    "warnings": 0,
+    "romBytes": 1048576
+  },
+  "limitations": [
+    "Y8950 output and FM-PAC gate not validated on hardware",
+    "Six FM voices transcribed; original SSG/noise and exact FM timbres not yet reproduced",
+    "62.6 second captures loop as blocks; original loop points not identified",
+    "Gameplay remains a cyclic technical section without original bosses or complete levels"
+  ]
+}

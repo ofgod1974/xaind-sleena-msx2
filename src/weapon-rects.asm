@@ -1,0 +1,10 @@
+    DB 0,32,11,1 ; normal
+    DB 16,32,5,8 ; grenade
+    DB 32,32,8,8 ; photon
+    DB 48,32,14,9 ; heavyR
+    DB 64,32,14,9 ; heavyL
+    DB 80,32,16,15 ; wideR
+    DB 96,32,16,15 ; wideL
+    DB 112,32,14,11 ; power
+    DB 160,0,14,9 ; wideOuterR
+    DB 176,0,14,9 ; wideOuterL

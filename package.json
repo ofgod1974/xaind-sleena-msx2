@@ -1,0 +1,13 @@
+{
+  "name": "xaind-sleena-msx2",
+  "version": "0.7.0",
+  "private": true,
+  "description": "Progetto di conversione MSX2 di Xain’d Sleena",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "assets": "node src/generate-assets.cjs && node src/generate-frontend.cjs"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5"
+  }
+}

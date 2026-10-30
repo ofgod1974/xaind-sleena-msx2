@@ -1,0 +1,4 @@
+# WebMSX is a bundled third-party emulator, not the game's implementation.
+wmsx.js linguist-vendored=true
+src/frontend/*.pixels.bin binary
+*.rom binary

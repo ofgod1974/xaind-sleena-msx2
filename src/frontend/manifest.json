@@ -1,5 +1,5 @@
 {
-  "version": "0.7.0",
+  "version": "0.8.0-dev",
   "banks": [
     56,
     58,
@@ -7,10 +7,10 @@
     62
   ],
   "compressedBytes": [
-    16465,
-    8941,
-    9069,
-    8991
+    16589,
+    9057,
+    9185,
+    9115
   ],
   "credit": "2026 - progetto di conversione di Lorenzo Moretti e Andrea D Dio (Associazione MSX Italia)",
   "source": "Original arcade title logo; MSX-specific Italian introduction and presentation"

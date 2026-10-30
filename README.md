@@ -1,109 +1,64 @@
-# Xain’d Sleena per MSX2
+# Xain’d Sleena MSX2 — Fusion-C, 0.8.0-dev
 
-**2026 - progetto di conversione di Lorenzo Moretti e Andrea D Dio (Associazione MSX Italia)**
+**Migrazione C giocabile, conversione arcade completa ancora in lavorazione.**
 
-Versione **0.7.0** — progetto in sviluppo, con sorgenti Z80, ROM e avvio in WebMSX.
+2026 - progetto di conversione di Lorenzo Moretti e Andrea D Dio (Associazione MSX Italia)
 
-## Gioca online
+Questa ROM contiene codice C compilato per Z80 con SDCC e le routine di input di Fusion-C 1.2, compilate dai sorgenti originali. Il motore V9938, il caricamento delle risorse, la presentazione e il driver musicale restano in assembly. Non è un gioco JavaScript: `index.html` carica il file ROM separato e WebMSX lo esegue.
 
-**[Avvia il gioco nel browser](https://xain-msx2-italia.grandbuddy11.chatgpt.site)**
+## Codice da leggere
 
-Non serve installare un emulatore. Clicca sullo schermo per attivare tastiera e audio; premi **Spazio** o Fire per iniziare e avanzare nell'intro. Nella pagina puoi scegliere la scheda audio e un'arma iniziale per il banco prova.
+| File | Responsabilità |
+| --- | --- |
+| `src/c/game.c` | Input Fusion-C, movimento, salto, collisioni; incontri dimostrativi esplicitamente marcati |
+| `src/c/weapons.c` | Cinque armi, proiettili, granate, bonus P, posture, punteggio, vite |
+| `src/c/game.h` | Interfaccia e mappa RAM condivisa fra C e Z80 |
+| `src/c/entry.s` | Due ingressi C stabili nel banco 3 |
+| `src/game.asm` | Avvio cartuccia, VDP, scrolling e rendering |
+| `src/weapons.asm` | Inizializzazione RAM e rendering di armi/HUD; vecchia logica rimossa |
+| `src/audio/player.asm` | Driver musicale e interrupt |
+| `third_party/fusion-c/` | Input e header upstream, con licenza e attribuzione |
 
-![Schermata dei titoli](screenshots/titolo.png)
+## Compilare
 
-## Stato della conversione
-
-Questa versione comprende titoli con logo originale, intro italiana, un settore tecnico giocabile, cinque famiglie d'arma, bonus P, posture, energia, vite e punteggio. Il progetto punta a una conversione fedele all'arcade; **non e ancora il port completo**.
-
-Il fondale rimane ciclico e i nemici sono semplificati. Mancano percorsi e collisioni dei livelli originali, boss e mini-boss, scelta dei pianeti, conto alla rovescia e fuga, sezioni spaziali e nave madre. Anche animazioni, tempi delle armi e suoni richiedono ulteriore lavoro di fedelta.
-
-## Contenuti della 0.7.0
-
-- Grafica SCREEN 8 con 256 colori e sprite ricavati dall'arcade.
-- Scrolling V9938 con 16 fasi R#18, doppia pagina e mascheratura dei bordi.
-- Laser normale, laser con granate, Photon a due vie, laser pesante perforante e laser largo triplo.
-- Portatori del bonus P, raccolta e perdita del potenziamento alla morte.
-- Doppio salto, inginocchiamento e posizione prona.
-- Tre vite, energia a 16 unita, punteggio a sei cifre e vite extra.
-- Titolo, invito lampeggiante, tre schermate introduttive e ciclo automatico di presentazione.
-- Trascrizione di sei voci FM dei 29 comandi musicali originali.
-
-![Armi nella ROM MSX2](screenshots/armi.png)
-
-## Comandi
-
-| Comando | Azione |
-|---|---|
-| Sinistra / destra | Movimento e direzione del tiro |
-| Su | Salto; rilascia e premi nuovamente per il secondo salto |
-| Giu | Inginocchiati; rilascia e premi nuovamente per sdraiarti |
-| Spazio | Una salva per pressione |
-| Joystick, pulsante 1 | Sparo / avvio |
-| Joystick, pulsante 2 | Salto |
-
-Le diagonali verso il basso cambiano la mira restando abbassati. Le direzioni laterali rialzano il personaggio. Dopo GAME OVER o SECTOR CLEAR, rilascia e premi Spazio per ricominciare.
-
-L'HUD mostra **X** per le vite e **P** per il numero dell'arma. Si parte con il laser normale; le armi 1–4 si ottengono raccogliendo i pacchi P. Le altre armi iniziali nel menu del browser sono una funzione di prova.
-
-## ROM e requisiti
-
-Carica [xain-msx2.rom](xain-msx2.rom) come cartuccia **ASCII16 da 1 MiB** in un MSX2 con **128 KiB di VRAM**, V9938 e Z80 standard. Non richiede MSX2+. La ROM e stata verificata in WebMSX, in NTSC e PAL; hardware reale non ancora verificato.
-
-Puoi anche scaricare il repository e aprire `index.html`: contiene la stessa ROM incorporata e usa il file locale `wmsx.js`.
-
-## Audio
-
-| Scheda | Stato |
-|---|---|
-| PSG | Tre voci, uscita verificata in WebMSX |
-| SCC + PSG | Cinque voci, uscita verificata in WebMSX |
-| MSX-MUSIC / FM-PAC + PSG | Sei voci YM2413; MSX-MUSIC verificato, abilitazione FM-PAC reale da verificare |
-| MSX-AUDIO / Y8950 | Driver presente, uscita ancora da validare |
-| OPL4 / MoonSound + PSG | Sei voci PCM YRW801, uscita verificata in WebMSX |
-
-Nella ROM: F1 PSG, F2 SCC, F3 YM2413, F4 Y8950, F5 OPL4. La scheda deve essere presente nell'emulatore o nell'hardware; in sua assenza viene usato il PSG.
-
-La musica e temporizzata dagli interrupt, indipendentemente dal rendering. Sono trascritte note, volumi e riattacchi delle sei voci FM; mancano le parti SSG/rumore e i timbri originali a quattro operatori. Le acquisizioni durano circa 62,6 secondi per comando e vengono ripetute come blocchi: i punti di loop originali non sono ancora identificati. Gli effetti sonori sono adattamenti PSG.
-
-## Compilazione
-
-I binari grafici e musicali generati sono inclusi. Per compilare servono **SjASMPlus 1.24.0** e Node.js, oppure PowerShell per lo script Windows.
-
-```sh
-node scripts/build.mjs /percorso/sjasmplus
-```
-
-Con `sjasmplus` nel PATH basta `node scripts/build.mjs`. La compilazione aggiorna la ROM e la copia incorporata in `index.html`.
-
-Su Windows e disponibile anche:
+Servono Node.js, SDCC con `sdasz80`/`sdldz80` e sjasmplus. Nessun HTML è necessario per compilare la ROM.
 
 ```powershell
-.\build.ps1 -Assembler C:\percorso\sjasmplus.exe
+node build.cjs C:/strumenti/sdcc/bin/sdcc.exe C:/strumenti/sjasmplus.exe
 ```
 
-Solo per rigenerare grafica, HUD e titoli, installa la dipendenza `sharp` ed esegui:
+In alternativa impostare `SDCC` e `SJASMPLUS`. Il codice C viene collegato a `$8000`, inserito nel banco ASCII16 numero 3 e richiamato dal banco fisso; il precedente banco delle risorse viene ripristinato al ritorno. Il driver musicale salva e ripristina il banco anche durante gli interrupt. RAM C riservata da `$C920`, stack della cartuccia invariato.
 
-```sh
-npm install
-npm run assets
-node scripts/build.mjs /percorso/sjasmplus
-```
+La compilazione usa ABI SDCC `--sdcccall 0`, coerente con i sorgenti Fusion-C 1.2. La distribuzione SDCC 4.6.0 #16555 provata richiede `--no-peep`: con le ottimizzazioni peephole abilitate generava un'istruzione Z80 illegale (`ld hl,a`). Non viene corretta a mano l'uscita del compilatore.
 
-La libreria musicale acquisita e gia inclusa in `src/audio/`.
+`build/report.json` registra compilatore e dimensioni; `build/core.map` mostra le funzioni C effettivamente collegate. Sono vietate sezioni RAM C che richiedono un'inizializzazione di runtime assente dalla cartuccia.
 
-## Verifiche e prestazioni
+Per rigenerare la grafica, installare `sharp` e lanciare i generatori in `src/`. La rigenerazione non è necessaria per compilare i sorgenti C: i dati grafici sono inclusi.
 
-La 0.7.0 compila senza errori e avvisi. Sono stati verificati titoli, intro automatica e manuale, ritorno al gioco e crediti. La build 06 comprende tredici verifiche di armi, bonus, danni, vite, punteggio ed esplosioni, con fixture RAM per le condizioni limite.
+## Provare
 
-Nello stress con nove grandi proiettili: tutte le fasi di scroll, nessuna scrittura R#18 fuori VBlank o con VDP occupato, zero differenze su oltre 35.000 pixel confrontati. La frequenza grafica dipende dal carico: nello stress artificiale e stata circa 12 aggiornamenti/s. Il target di gioco a 50/60 aggiornamenti/s non e ancora raggiunto; la musica mantiene il proprio clock.
+Servire questa cartella con un server HTTP locale e aprire `index.html`. Il browser deve poter caricare `xain-msx2.rom` e `wmsx.js`. In emulatore MSX2 esterno: cartuccia ASCII16, almeno 128 KiB VRAM, Z80 standard.
 
-Documentazione dettagliata: [titoli e intro](docs/BUILD07.md), [armi e meccaniche](docs/BUILD06.md), [audio](docs/BUILD05.md). I report JSON sono nella cartella `docs/`.
+Frecce: movimento e salto. Giù, rilasciare e ripremere: inginocchiato e prono. Spazio: un tiro per pressione. Il settore è ancora quello di prova della 0.7; non rappresenta un livello arcade completo.
 
-## Crediti e componenti di terze parti
+## Verifica eseguita
 
-Progetto di conversione: **Lorenzo Moretti e Andrea D Dio — Associazione MSX Italia, 2026**.
+Compilazione assembly senza errori o warning; collegamento C riuscito. Avvio reale della ROM in WebMSX, titoli, intro, ingresso in partita, movimento e salto. **19 controlli eseguiti sul codice C compilato nella CPU emulata**, comprendenti cinque salve, assenza di autofire, bonus P, danni senza perdita dell'arma, morte, game over, posture e doppio salto. Risultati in `qa-mechanics.json`; fotografia della partita in `fusion-c-webmsx.png`.
 
-Gioco, grafica e composizioni originali: **Technos Japan, 1986**. WebMSX: **Paulo Augusto Peccin**. Layout e riferimenti tecnici: driver Xain di MAME. Dati degli strumenti OPL4 derivati dal driver Linux YRW801: avviso completo in [THIRD_PARTY-YRW801.txt](src/audio/THIRD_PARTY-YRW801.txt).
+Non sono prove su MSX2 fisico, né una convalida della fedeltà dei boss o dei livelli. PSG/SCC/MSX-MUSIC/OPL4 ereditano il driver precedente; Y8950 resta da verificare con hardware o emulatore compatibile.
 
-La pubblicazione del repository non attribuisce una licenza sui materiali originali del gioco. Gli avvisi dei componenti di terze parti sono conservati; non viene dichiarata una licenza unica per l'intero pacchetto.
+## Livelli e boss: stato reale
+
+`research/maps/` conserva tile e attributi osservati in cinque acquisizioni dell'arcade. Le immagini sono ricostruzioni di ricerca, **non livelli già integrati nella ROM**. Le celle non osservate sono segnalate da `known.bin` e, nelle anteprime, da una scacchiera. Le dimensioni sono quelle dell'area osservata, non una certificazione dell'estensione completa del pianeta. Anche copertura 100% significa solo copertura del rettangolo acquisito.
+
+Le acquisizioni forzano posizione ed energia del giocatore per leggere i fondali: non possono validare tempi, collisioni o intelligenza dei nemici. Per questo non vengono usate come prova della fedeltà dei comportamenti. I buffer video reali vengono letti a `$2800` e `$3000`, secondo il driver MAME; le aree RAM `$0800`/`$1000` non vengono trattate come tilemap video.
+
+Restano da completare: percorsi e collisioni originali, dislivelli e pericoli, checkpoint/timer, tutti i nemici e i loro punti di comparsa, boss e miniboss con animazioni e comportamenti verificati, selezione/progressione dei pianeti, bombe e fughe, combattimenti spaziali, asteroidi/mothership e fortezza finale. Il fondale del settore giocabile rimane ciclico. Non viene dichiarata una conversione completa.
+
+## Riferimenti e diritti
+
+Fusion-C 1.2: Eric Boez ed équipe, https://github.com/ericb59/Fusion-C-v1.2 — CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/ . I due file di input e l'header in `third_party/fusion-c/` sono conservati senza modifiche. Codice C del progetto: CC BY-SA 4.0, con i crediti del progetto sopra indicati. Questa indicazione non concede diritti sulle risorse del gioco originale.
+
+Driver hardware di riferimento: https://github.com/mamedev/mame/blob/master/src/mame/technos/xain.cpp e `xain_v.cpp`, BSD-3-Clause. Acquisizioni MAME 0.289 dal set `xsleenaba`: la variante usata per ricerca va confrontata con la versione World per verificare le eventuali differenze prima di dichiarare fedeltà completa.
+
+Grafica e musica di Xain’d Sleena restano dei rispettivi titolari. WebMSX: Paulo Augusto Peccin, https://github.com/ppeccin/WebMSX . Strumenti di compilazione non inclusi.

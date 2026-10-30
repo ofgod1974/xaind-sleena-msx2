@@ -151,24 +151,7 @@ main:
     INC A
     LD (ticks),A
     CALL audio_poll
-    XOR A
-    CALL $00d5
-    LD (joy),A
-    OR A
-    JR NZ,.gotjoy
-    LD A,1
-    CALL $00d5
-    LD (joy),A
-.gotjoy:
-    XOR A
-    CALL $00d8
-    LD C,A
-    LD A,1
-    PUSH BC
-    CALL $00d8
-    POP BC
-    OR C
-    LD (fire),A
+    CALL c_input
     LD A,(state)
     OR A
     JR Z,.playing
@@ -238,290 +221,23 @@ reset:
     RET
 
 update:
-    XOR A
-    LD (walking),A
-    LD A,(cool)
-    OR A
-    JR Z,.nocool
-    DEC A
-    LD (cool),A
-.nocool:
-    LD A,(shield)
-    OR A
-    JR Z,.noshield
-    DEC A
-    LD (shield),A
-.noshield:
-    CALL stance_update
-    LD A,(stance)
-    OR A
-    JP NZ,.jump
-    LD A,(joy)
-    CP 2
-    JR Z,.right
-    CP 3
-    JR Z,.right
-    CP 4
-    JR Z,.right
-    CP 6
-    JR Z,.left
-    CP 7
-    JR Z,.left
-    CP 8
-    JR Z,.left
-    JR .jump
-.right:
-    XOR A
-    LD (face),A
-    INC A
-    LD (walking),A
-    LD A,(px)
-    CP 112
-    JR NC,.scroll
-    ADD A,2
-    LD (px),A
-    JR .jump
-.scroll:
-    LD HL,(camera)
-    LD DE,1
-    ADD HL,DE
-    LD (camera),HL
-    LD A,(ex)
-    SUB 1
-    LD (ex),A
-    LD A,(power_active)
-    OR A
-    JR Z,.noscrollpower
-    LD A,(power_x)
-    DEC A
-    LD (power_x),A
-    CP 8
-    JR NC,.noscrollpower
-    XOR A
-    LD (power_active),A
-.noscrollpower:
-    LD A,H
-    CP 4
-    JR C,.jump
-    LD A,1
-    LD (state),A
-    XOR A
-    LD (restartarmed),A
-    LD A,50
-    LD (cool),A
-    JR .jump
-.left:
-    LD A,1
-    LD (walking),A
-    LD A,128
-    LD (face),A
-    LD A,(px)
-    CP 26
-    JR C,.jump
-    SUB 2
-    LD (px),A
-.jump:
-    LD A,(joy)
-    CP 1
-    JR Z,.jumppressed
-    CP 2
-    JR Z,.jumppressed
-    CP 8
-    JR Z,.jumppressed
+    LD HL,$8003
+    JR c_call
+c_input:
+    LD HL,$8000
+c_call:
+    LD A,(mapper_bank)
+    PUSH AF
     LD A,3
-    CALL $00d8
-    OR A
-    JR NZ,.jumppressed
-    LD (jumpheld),A
-    JR .physics
-.jumppressed:
-    LD A,(jumpheld)
-    OR A
-    JR NZ,.physics
-    INC A
-    LD (jumpheld),A
-    LD A,(jumpcount)
-    CP 2
-    JR NC,.physics
-    INC A
-    LD (jumpcount),A
-.takeoff:
-    XOR A
-    LD (stance),A
-    LD A,1
-    LD (air),A
-    LD A,-7
-    LD (vy),A
-.physics:
-    LD A,(air)
-    OR A
-    JR Z,.shoot
-    LD A,(vy)
-    LD B,A
-    LD A,(py)
-    ADD A,B
-    CP 192
-    JR NC,.ceiling
-    CP 24
-    JR NC,.positionok
-.ceiling:
-    LD A,24
-    LD (py),A
-    XOR A
-    LD (vy),A
-    JR .gravitydone
-.positionok:
-    LD (py),A
-    LD A,(ticks)
-    AND 1
-    JR NZ,.gravitydone
-    LD A,(vy)
-    INC A
-    LD (vy),A
-.gravitydone:
-    LD A,(vy)
-    BIT 7,A
-    JR NZ,.shoot
-    LD A,(py)
-    CP 128
-    JR C,.shoot
-    LD A,128
-    LD (py),A
-    XOR A
-    LD (air),A
-    LD (vy),A
-    LD (jumpcount),A
-.shoot:
-    CALL weapons_update
-.enemymove:
-    LD A,(enemy)
-    OR A
-    JR NZ,.enemywalk
-    LD A,(ticks)
-    AND 31
-    JR NZ,.enemyshot
-    LD A,1
-    LD (enemy),A
-    LD A,(spawn_number)
-    INC A
-    LD (spawn_number),A
-    AND 3
-    CP 1
-    LD A,0
-    JR NZ,.notcarrier
-    INC A
-.notcarrier:
-    LD (carrier),A
-    LD A,240
-    LD (ex),A
-.enemywalk:
-    LD A,(carrier)
-    OR A
-    JR Z,.soldierwalk
-    LD A,(px)
-    LD B,A
-    LD A,(ex)
-    SUB B
-    CP 80
-    JR NC,.enemyshot
-    LD A,(ex)
-    ADD A,2
-    CP 239
-    JR C,.fleeing
-    LD A,238
-.fleeing:
-    LD (ex),A
-    JR .enemyshot
-.soldierwalk:
-    LD A,(ticks)
-    AND 1
-    JR NZ,.enemybounds
-    LD A,(ex)
-    DEC A
-    LD (ex),A
-.enemybounds:
-    LD A,(ex)
-    CP 6
-    JR NC,.enemyshot
-    XOR A
-    LD (enemy),A
-.enemyshot:
-    LD A,(carrier)
-    OR A
-    JR NZ,.ebmove
-    LD A,(ticks)
-    AND 63
-    JR NZ,.ebmove
-    LD A,(enemy)
-    OR A
-    JR Z,.ebmove
-    LD A,(eb)
-    OR A
-    JR NZ,.ebmove
-    INC A
-    LD (eb),A
-    LD A,(ex)
-    LD (ebx),A
-.ebmove:
-    LD A,(eb)
-    OR A
-    JR Z,.collisions
-    LD A,(ebx)
-    SUB 4
-    LD (ebx),A
-    JR NC,.collisions
-    XOR A
-    LD (eb),A
-.collisions:
-.touch:
-    LD A,(shield)
-    OR A
-    RET NZ
-    LD A,(py)
-    CP 106
-    RET C
-    LD A,(px)
-    LD B,A
-    LD A,(enemy)
-    OR A
-    JR Z,.ebhit
-    LD A,(ex)
-    SUB B
-    ADD A,12
-    CP 24
-    JR NC,.ebhit
-    LD A,8
-    JR .damage
-.ebhit:
-    LD A,(eb)
-    OR A
-    RET Z
-    LD A,(ebx)
-    SUB B
-    ADD A,4
-    CP 20
-    RET NC
-    XOR A
-    LD (eb),A
-    LD A,(stance)
-    CP 2
-    RET Z
-    LD A,1
-.damage:
-    LD B,A
-    LD A,60
-    LD (shield),A
-    LD A,(hp)
-    SUB B
-    JR C,.fatal
-    JR Z,.fatal
-    LD (hp),A
-    LD A,2
+    CALL select_bank
+    CALL .invoke
+    POP AF
+    JP select_bank
+.invoke:
+    JP (HL)
+c_sfx:
+    LD A,($c900)
     JP audio_sfx
-.fatal:
-    XOR A
-    LD (hp),A
-    JP lose_life
 
 ; Upload RLE (count,value) terminated by count=0 to a 16 KiB-aligned VRAM address.
 upload:
@@ -1255,7 +971,8 @@ atlas: INCBIN "atlas.rle"
     DS $10000-$,$ff
     ; Append the unused fourth 16 KiB bank without overflowing the assembler address space.
     ORG 0 ; fileorg-ok: append the fourth cartridge bank, not a RAM address gap.
-    DS $4000,$ff
+    INCBIN "c/core.bin"
+    DS $4000-($),$ff
 
     ORG 0 ; fileorg-ok: append canonical background banks 4..6.
     INCBIN "background.raw"

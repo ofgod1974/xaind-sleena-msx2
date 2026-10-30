@@ -1,13 +1,14 @@
 {
-  "name": "xaind-sleena-msx2",
-  "version": "0.7.0",
+  "name": "xaind-sleena-msx2-fusion-c",
+  "version": "0.8.0-dev",
   "private": true,
-  "description": "Progetto di conversione MSX2 di Xain’d Sleena",
+  "description": "MSX2 cartridge with C/Fusion-C gameplay and Z80 video/audio; arcade conversion in progress",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "assets": "node src/generate-assets.cjs && node src/generate-frontend.cjs"
+    "build": "node build.cjs",
+    "test": "node tests/qa.cjs"
   },
   "devDependencies": {
-    "sharp": "0.35.5"
+    "sharp": "0.35.5",
+    "playwright": "1.62.1"
   }
 }

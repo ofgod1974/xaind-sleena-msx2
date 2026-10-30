@@ -1,0 +1,14 @@
+{
+  "arcadeStageId": 1,
+  "widthTiles": 158,
+  "heightTiles": 16,
+  "observedCells": 2528,
+  "totalCells": 2528,
+  "coverage": 1,
+  "cellsWithMultipleObservedValues": 240,
+  "snapshots": 269,
+  "complete": false,
+  "tileFormat": "little-endian uint16: original tile byte | attribute byte << 8; known.bin determines validity",
+  "preview": "planet-1.png",
+  "note": "Observed cells only. Preview background repeats its first 256-pixel window; no claim of original parallax. Capture forces player position and health."
+}

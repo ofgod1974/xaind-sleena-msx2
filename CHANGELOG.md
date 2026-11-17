@@ -21,3 +21,12 @@
 ## Build 04
 
 - Scrolling V9938 a 16 fasi, doppia pagina e HUD compensato.
+
+
+## 0.8.6-dev / 0.8.6C-dev — 17 novembre 2026
+
+- Pubblicate ROM ASCII16 da 2 MiB e sorgenti nativi C/Fusion-C + Z80 delle due varianti.
+- SCREEN 5 a 16 colori: verticale hardware, protagonista hardware, composizione orizzontale distribuita e raster HUD.
+- SCREEN 8 a 256 colori: motore video precedente, trainer e ottimizzazioni CPU.
+- Trainer T/SELECT con energia protetta e ritorno all’ultimo terreno sicuro.
+- 50 e 58 controlli di regressione passati; nuova gestione video ancora da verificare su hardware fisico.

@@ -1,0 +1,20 @@
+const fs=require('fs'),path=require('path'),{chromium}=require('C:/Users/Andrea/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const root=path.resolve('outputs/xain-msx2-fast'),exe=path.resolve('work/browsers/chromium_headless_shell-1234/chrome-headless-shell-win64/chrome-headless-shell.exe');
+fs.writeFileSync('work/benchmark-fast.html','<div id="wmsx"><div id="wmsx-screen"></div></div>');
+(async()=>{let browser=await chromium.launch({headless:true,executablePath:exe}),reports=[];try{
+for(const axis of ['horizontal','vertical','diagonal'])for(const [name,dir,fast]of [['086fast','outputs/xain-msx2-fast',true]]){
+ const rom=fs.readFileSync(dir+'/xain-msx2.rom'),symbols=fs.readFileSync(dir+'/symbols.txt','utf8'),front=parseInt(symbols.match(/^front_end: EQU 0x([0-9A-F]+)/mi)[1],16);rom[front-16384]=201;
+ const p=await browser.newPage();await p.goto(require('url').pathToFileURL(path.resolve('work/benchmark-fast.html')).href);await p.addScriptTag({content:fs.readFileSync(root+'/wmsx.js','utf8')});await p.evaluate(r=>{Object.assign(WMSX,{MACHINE:'MSX2E',CARTRIDGE1_URL:'data:application/octet-stream;base64,'+r,CARTRIDGE1_FORMAT:'ASCII16',AUTO_START:false,SCREEN_FULLSCREEN_MODE:0});WMSX.start();},rom.toString('base64'));
+ await p.waitForFunction(()=>WMSX.room?.machine?.eval('bus.read(0xc035)===1&&bus.read(0xc00d)===16&&bus.read(0xc004)>3'),null,{timeout:30000});
+ await p.evaluate(({axis,fast})=>{const m=WMSX.room.machine,b=m.eval('bus'),o=b.output.bind(b),input=b.input.bind(b);b.write(0xc940,0);b.write(0xc000,112);window.trace=[];let latch=false,first=0,dir=2;
+ b.input=function(port){if((port&255)===153)latch=false;return input(port);};b.output=function(port,value){if((port&255)===153){if(!latch){first=value;latch=true;}else{latch=false;if(value===146){let status=m.vdp.eval('commandProcessor.updateStatus();status[2]|(VR<<6)');const back=b.read(0xc007),v=m.vdp.eval('vram'),pixels=[];for(let y=24;y<184;y++)for(let x=16;x<240;x++){let a=fast?back*32768+y*128+(x>>1):back*65536+y*256+x;pixels.push(fast?(x&1?v[a]&15:v[a]>>4):v[a]);}
+ window.trace.push({cycle:m.vdp.getVDPCycles(),x:b.read(0xc005)+256*b.read(0xc006),y:b.read(0xc0a5),busy:status&1,active:!(status&64)});window.snapshot={pixels,coarse:b.read(0xc083),origin:b.read(0xc088)+256*b.read(0xc089),fine:b.read(0xc031),px:b.read(0xc000)};
+ b.write(0xc009,0);b.write(0xc013,0);b.write(0xc505,0);b.write(0xc00e,255);if(axis!=='horizontal'){let y=b.read(0xc941);if(y>=88)dir=-2;if(y<=0)dir=2;b.write(0xc941,y+dir);}
+ }}}return o(port,value);};},{axis,fast});
+ if(axis!=='vertical')await p.keyboard.down('ArrowRight');await p.waitForTimeout(6000);if(axis!=='vertical')await p.keyboard.up('ArrowRight');
+ const data=await p.evaluate(()=>({trace:window.trace,snapshot:window.snapshot}));let t=data.trace,dt=t.slice(1).map((v,i)=>(v.cycle-t[i].cycle)/21504960*1000).sort((a,b)=>a-b),moveX=t.at(-1).x-t[0].x,moveY=t.slice(1).reduce((sum,v,i)=>sum+Math.abs(v.y-t[i].y),0);
+ let errors=0,checked=0;const raster=fs.readFileSync((fast?'outputs/xain-msx2-fast':'outputs/xain-msx2-fusionc')+'/src/levels/cleemalt.pixels.bin'),snap=data.snapshot,actor=snap.px+snap.fine-8;
+ for(let y=24;y<184;y++)for(let x=16;x<240;x++){if(x>=actor-20&&x<actor+36)continue;let sy=fast?y:y-snap.coarse,xx=snap.origin+x-8,expected=0;if(sy>=24&&sy<184){let a=fast?sy*2048+(xx>>1):sy*4096+xx;expected=fast?(xx&1?raster[a]&15:raster[a]>>4):raster[a];}checked++;if(snap.pixels[(y-24)*224+x-16]!==expected)errors++;}
+ const report={name,axis,frames:t.length,medianMs:dt[Math.floor(dt.length*.5)],p95Ms:dt[Math.floor(dt.length*.95)],maxMs:Math.max(...dt),movedX:moveX,movedY:moveY,busyWrites:t.filter(v=>v.busy).length,activeWrites:t.filter(v=>v.active).length,background:{checked,errors}};reports.push(report);console.log(report);await p.screenshot({path:root+'/pal-benchmark-'+name+'-'+axis+'.png'});await p.close();
+}fs.writeFileSync(root+'/qa-performance-pal-final.json',JSON.stringify(reports,null,2));}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+

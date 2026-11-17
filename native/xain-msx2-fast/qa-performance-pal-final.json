@@ -1,0 +1,50 @@
+[
+  {
+    "name": "086fast",
+    "axis": "horizontal",
+    "frames": 151,
+    "medianMs": 39.82355698406321,
+    "p95Ms": 41.593009240658894,
+    "maxMs": 42.14292888710325,
+    "movedX": 299,
+    "movedY": 0,
+    "busyWrites": 0,
+    "activeWrites": 0,
+    "background": {
+      "checked": 26880,
+      "errors": 0
+    }
+  },
+  {
+    "name": "086fast",
+    "axis": "vertical",
+    "frames": 301,
+    "medianMs": 19.634726128297842,
+    "p95Ms": 21.823244498013484,
+    "maxMs": 22.556749698674164,
+    "movedX": 0,
+    "movedY": 600,
+    "busyWrites": 0,
+    "activeWrites": 0,
+    "background": {
+      "checked": 26880,
+      "errors": 0
+    }
+  },
+  {
+    "name": "086fast",
+    "axis": "diagonal",
+    "frames": 151,
+    "medianMs": 39.81741886522923,
+    "p95Ms": 41.5698517923307,
+    "maxMs": 42.16050622740057,
+    "movedX": 299,
+    "movedY": 300,
+    "busyWrites": 0,
+    "activeWrites": 0,
+    "background": {
+      "checked": 26880,
+      "errors": 0
+    }
+  }
+]

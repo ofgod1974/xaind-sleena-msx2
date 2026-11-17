@@ -1,0 +1,18 @@
+Xain’d Sleena MSX2 0.8.6-dev — 16 novembre 2026
+
+2026 - progetto di conversione di Lorenzo Moretti e Andrea D Dio (Associazione MSX Italia)
+
+XAIN086.ROM: versione raccomandata per la nuova prova, SCREEN 5 a 16 colori.
+XAIN086C.ROM: alternativa a 256 colori, scrolling precedente piu lento.
+Entrambe: 2 MiB, mapper ASCII16. Sul Pico+ forzare ASCII16.
+
+TRAINER: premere T o SELECT durante il gioco. TR nell’HUD indica che e attivo.
+Mantiene energia, vite e arma. Se cadi nel vuoto torna all’ultimo terreno sicuro.
+Premere di nuovo T/SELECT per disattivarlo. Parte disattivato.
+
+Nuovo video: verticale hardware fino a 2 pixel per aggiornamento, protagonista a sprite hardware, composizione orizzontale distribuita e clock di gioco sincronizzato ai tick video.
+Benchmark WebMSX PAL isolato: circa 40 ms orizzontale/diagonale, 20 ms verticale.
+Non e ancora uno scrolling orizzontale a 50 Hz. Prestazioni variabili con la scena.
+50 verifiche passate sulla variante rapida; 58 su quella a 256 colori.
+La nuova variante video deve ancora essere collaudata su hardware fisico.
+Conversione dei livelli e boss completa ancora in lavorazione.

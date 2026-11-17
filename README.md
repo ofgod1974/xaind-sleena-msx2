@@ -1,109 +1,49 @@
-# Xain’d Sleena per MSX2
+# Xain’d Sleena per MSX2 — 0.8.6-dev e 0.8.6C-dev
 
 **2026 - progetto di conversione di Lorenzo Moretti e Andrea D Dio (Associazione MSX Italia)**
 
-Versione **0.7.0** — progetto in sviluppo, con sorgenti Z80, ROM e avvio in WebMSX.
+Aggiornamento del 17 novembre 2026. Conversione nativa per Z80, logica C compilata con SDCC e input Fusion-C; video e audio in assembly. Livelli e boss completi sono ancora in lavorazione.
 
-## Gioca online
+## Scarica e prova
 
-**[Avvia il gioco nel browser](https://xain-msx2-italia.grandbuddy11.chatgpt.site)**
+| ROM | Grafica | Scrolling |
+| --- | --- | --- |
+| [XAIN086.ROM](XAIN086.ROM) | SCREEN 5, 16 colori | Variante rapida: verticale hardware, protagonista a sprite hardware |
+| [XAIN086C.ROM](XAIN086C.ROM) | SCREEN 8, 256 colori | Variante cromatica, compositore precedente più lento |
 
-Non serve installare un emulatore. Clicca sullo schermo per attivare tastiera e audio; premi **Spazio** o Fire per iniziare e avanzare nell'intro. Nella pagina puoi scegliere la scheda audio e un'arma iniziale per il banco prova.
+Entrambe sono cartucce **ASCII16 da 2 MiB** e richiedono MSX2 con **128 KiB VRAM**. Sul Pico+ selezionare esplicitamente ASCII16. In WebMSX caricare la ROM nello slot cartuccia e forzare lo stesso mapper. Non occorre MSX2+.
 
-![Schermata dei titoli](screenshots/titolo.png)
+**Trainer: T oppure SELECT.** TR nell’HUD indica che è attivo: energia protetta, vite e arma conservate; cadendo nel vuoto si torna all’ultimo terreno sicuro. Premere di nuovo per disattivarlo. All’avvio è disattivato.
 
-## Stato della conversione
+Frecce: movimento, Su salto/doppio salto, Giù posture. Spazio: avvio/sparo. Joystick: pulsante 1 sparo, pulsante 2 salto. Audio: F1 PSG, F2 SCC, F3 MSX-MUSIC, F4 MSX-AUDIO, F5 OPL4, con hardware corrispondente presente. Il collaudo audio su tutte le cartucce reali resta da completare.
 
-Questa versione comprende titoli con logo originale, intro italiana, un settore tecnico giocabile, cinque famiglie d'arma, bonus P, posture, energia, vite e punteggio. Il progetto punta a una conversione fedele all'arcade; **non e ancora il port completo**.
+![Prova della variante rapida con trainer](screenshots/086/qa-fast-mountain.png)
 
-Il fondale rimane ciclico e i nemici sono semplificati. Mancano percorsi e collisioni dei livelli originali, boss e mini-boss, scelta dei pianeti, conto alla rovescia e fuga, sezioni spaziali e nave madre. Anche animazioni, tempi delle armi e suoni richiedono ulteriore lavoro di fedelta.
+## Cosa cambia
 
-## Contenuti della 0.7.0
+La 0.8.6 rapida usa R#23 per l’intera escursione verticale, a passi fino a due pixel, senza ricopiare il fondale. L’orizzontale combina R#18 e doppia pagina, distribuendo la composizione su otto lavori. Il protagonista viene disegnato con sprite hardware; interrupt di linea separano HUD e campo di gioco. Logica e musica usano il riferimento degli interrupt video.
 
-- Grafica SCREEN 8 con 256 colori e sprite ricavati dall'arcade.
-- Scrolling V9938 con 16 fasi R#18, doppia pagina e mascheratura dei bordi.
-- Laser normale, laser con granate, Photon a due vie, laser pesante perforante e laser largo triplo.
-- Portatori del bonus P, raccolta e perdita del potenziamento alla morte.
-- Doppio salto, inginocchiamento e posizione prona.
-- Tre vite, energia a 16 unita, punteggio a sei cifre e vite extra.
-- Titolo, invito lampeggiante, tre schermate introduttive e ciclo automatico di presentazione.
-- Trascrizione di sei voci FM dei 29 comandi musicali originali.
+Entrambe le varianti includono trainer, collisioni ottimizzate e cache per terreno dei nemici e punteggio. Sono presenti il primo percorso con collisioni, salita e rocce attraversabili, effetti di nube alla morte, armi e bonus; la fedeltà e i contenuti restano in sviluppo.
 
-![Armi nella ROM MSX2](screenshots/armi.png)
+## Prestazioni e stato dei test
 
-## Comandi
+Benchmark isolato WebMSX PAL: circa **40 ms** per aggiornamento orizzontale/diagonale e **20 ms** verticale nella variante rapida, contro circa 58 ms e 80 ms della 0.8.5 nelle stesse condizioni. Non sono valori garantiti per tutte le scene: l’orizzontale non raggiunge ancora 50 Hz.
 
-| Comando | Azione |
-|---|---|
-| Sinistra / destra | Movimento e direzione del tiro |
-| Su | Salto; rilascia e premi nuovamente per il secondo salto |
-| Giu | Inginocchiati; rilascia e premi nuovamente per sdraiarti |
-| Spazio | Una salva per pressione |
-| Joystick, pulsante 1 | Sparo / avvio |
-| Joystick, pulsante 2 | Salto |
+**50 controlli passati** sulla variante rapida e **58 sulla variante a 256 colori**, inclusi collisioni, armi e trainer. La nuova gestione SCREEN 5 deve ancora essere collaudata su NMS8245/Pico+ fisico. La conversione completa dei livelli, dei boss e delle sezioni spaziali non è terminata.
 
-Le diagonali verso il basso cambiano la mira restando abbassati. Le direzioni laterali rialzano il personaggio. Dopo GAME OVER o SECTOR CLEAR, rilascia e premi Spazio per ricominciare.
+## Sorgenti e compilazione
 
-L'HUD mostra **X** per le vite e **P** per il numero dell'arma. Si parte con il laser normale; le armi 1–4 si ottengono raccogliendo i pacchi P. Le altre armi iniziali nel menu del browser sono una funzione di prova.
+- [Variante rapida SCREEN 5](native/xain-msx2-fast/README.md)
+- [Variante SCREEN 8 a 256 colori](native/xain-msx2-fusionc/README.md)
+- [Note e istruzioni delle ROM](XAIN086-NOTE.txt)
 
-## ROM e requisiti
+Servono Node.js, SDCC con assembler/linker Z80 e sjasmplus:
 
-Carica [xain-msx2.rom](xain-msx2.rom) come cartuccia **ASCII16 da 1 MiB** in un MSX2 con **128 KiB di VRAM**, V9938 e Z80 standard. Non richiede MSX2+. La ROM e stata verificata in WebMSX, in NTSC e PAL; hardware reale non ancora verificato.
+    cd native/xain-msx2-fast
+    node build.cjs C:/strumenti/sdcc/bin/sdcc.exe C:/strumenti/sjasmplus.exe
 
-Puoi anche scaricare il repository e aprire `index.html`: contiene la stessa ROM incorporata e usa il file locale `wmsx.js`.
+Per la variante C usare la cartella native/xain-msx2-fusionc. Asset generati e avvisi delle terze parti sono inclusi. Il convertitore SCREEN 5 legge le risorse dalla cartella sorella SCREEN 8. Rapporti QA nelle rispettive cartelle; alcuni runner conservano percorsi del workspace di sviluppo da adattare alla propria macchina.
 
-## Audio
+La demo [Sites](https://xain-msx2-italia.grandbuddy11.chatgpt.site/) e i sorgenti storici alla radice restano **0.7.0**: per le nuove versioni usare le ROM e le cartelle native indicate sopra. [Documentazione storica 0.7.0](docs/README-0.7.0.md).
 
-| Scheda | Stato |
-|---|---|
-| PSG | Tre voci, uscita verificata in WebMSX |
-| SCC + PSG | Cinque voci, uscita verificata in WebMSX |
-| MSX-MUSIC / FM-PAC + PSG | Sei voci YM2413; MSX-MUSIC verificato, abilitazione FM-PAC reale da verificare |
-| MSX-AUDIO / Y8950 | Driver presente, uscita ancora da validare |
-| OPL4 / MoonSound + PSG | Sei voci PCM YRW801, uscita verificata in WebMSX |
-
-Nella ROM: F1 PSG, F2 SCC, F3 YM2413, F4 Y8950, F5 OPL4. La scheda deve essere presente nell'emulatore o nell'hardware; in sua assenza viene usato il PSG.
-
-La musica e temporizzata dagli interrupt, indipendentemente dal rendering. Sono trascritte note, volumi e riattacchi delle sei voci FM; mancano le parti SSG/rumore e i timbri originali a quattro operatori. Le acquisizioni durano circa 62,6 secondi per comando e vengono ripetute come blocchi: i punti di loop originali non sono ancora identificati. Gli effetti sonori sono adattamenti PSG.
-
-## Compilazione
-
-I binari grafici e musicali generati sono inclusi. Per compilare servono **SjASMPlus 1.24.0** e Node.js, oppure PowerShell per lo script Windows.
-
-```sh
-node scripts/build.mjs /percorso/sjasmplus
-```
-
-Con `sjasmplus` nel PATH basta `node scripts/build.mjs`. La compilazione aggiorna la ROM e la copia incorporata in `index.html`.
-
-Su Windows e disponibile anche:
-
-```powershell
-.\build.ps1 -Assembler C:\percorso\sjasmplus.exe
-```
-
-Solo per rigenerare grafica, HUD e titoli, installa la dipendenza `sharp` ed esegui:
-
-```sh
-npm install
-npm run assets
-node scripts/build.mjs /percorso/sjasmplus
-```
-
-La libreria musicale acquisita e gia inclusa in `src/audio/`.
-
-## Verifiche e prestazioni
-
-La 0.7.0 compila senza errori e avvisi. Sono stati verificati titoli, intro automatica e manuale, ritorno al gioco e crediti. La build 06 comprende tredici verifiche di armi, bonus, danni, vite, punteggio ed esplosioni, con fixture RAM per le condizioni limite.
-
-Nello stress con nove grandi proiettili: tutte le fasi di scroll, nessuna scrittura R#18 fuori VBlank o con VDP occupato, zero differenze su oltre 35.000 pixel confrontati. La frequenza grafica dipende dal carico: nello stress artificiale e stata circa 12 aggiornamenti/s. Il target di gioco a 50/60 aggiornamenti/s non e ancora raggiunto; la musica mantiene il proprio clock.
-
-Documentazione dettagliata: [titoli e intro](docs/BUILD07.md), [armi e meccaniche](docs/BUILD06.md), [audio](docs/BUILD05.md). I report JSON sono nella cartella `docs/`.
-
-## Crediti e componenti di terze parti
-
-Progetto di conversione: **Lorenzo Moretti e Andrea D Dio — Associazione MSX Italia, 2026**.
-
-Gioco, grafica e composizioni originali: **Technos Japan, 1986**. WebMSX: **Paulo Augusto Peccin**. Layout e riferimenti tecnici: driver Xain di MAME. Dati degli strumenti OPL4 derivati dal driver Linux YRW801: avviso completo in [THIRD_PARTY-YRW801.txt](src/audio/THIRD_PARTY-YRW801.txt).
-
-La pubblicazione del repository non attribuisce una licenza sui materiali originali del gioco. Gli avvisi dei componenti di terze parti sono conservati; non viene dichiarata una licenza unica per l'intero pacchetto.
+Gioco, grafica e composizioni originali: Technos Japan. WebMSX: Paulo Augusto Peccin. Avvisi Fusion-C e YRW801 conservati nei sorgenti. Non è dichiarata una licenza unica sui materiali originali del gioco.

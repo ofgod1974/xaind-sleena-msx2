@@ -1,0 +1,29 @@
+{
+  "planet": "Cleemalt",
+  "arcadeStageId": 0,
+  "observedWidth": 2768,
+  "originalMacroWidth": 3072,
+  "collisionShapes": 42,
+  "collisionBytes": 3494,
+  "floorPhysicalY": [
+    48,
+    48,
+    48,
+    48,
+    48,
+    0,
+    0,
+    0,
+    48,
+    48,
+    48,
+    48
+  ],
+  "videoWidth": 4096,
+  "videoRows": 192,
+  "banks": [
+    64,
+    111
+  ],
+  "note": "Foreground and collision records from arcade. Vertical geometry adapted 3:2 to the MSX viewport; background presentation is still an adaptation."
+}

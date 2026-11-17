@@ -1,0 +1,14 @@
+{
+  "name": "xaind-sleena-msx2-fusion-c",
+  "version": "0.8.2-dev",
+  "private": true,
+  "description": "MSX2 cartridge with C/Fusion-C gameplay and Z80 video/audio; arcade conversion in progress",
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node tests/qa.cjs"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5",
+    "playwright": "1.62.1"
+  }
+}

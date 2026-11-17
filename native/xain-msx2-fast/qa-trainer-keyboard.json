@@ -1,0 +1,12 @@
+[
+  {
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  }
+]

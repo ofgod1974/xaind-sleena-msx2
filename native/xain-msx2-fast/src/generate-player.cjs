@@ -1,0 +1,5 @@
+const fs=require('fs'),path=require('path'),b=__dirname+'/';const r=fs.readFileSync(b+'atlas.rle'),atlas=[];for(let i=0;r[i];i+=2)for(let j=0;j<r[i];j++)atlas.push(r[i+1]);if(atlas.length!==8192)throw Error('SCREEN5 atlas required');
+const pix=(x,y)=>x&1?atlas[y*128+(x>>1)]&15:atlas[y*128+(x>>1)]>>4;
+const poses=[];for(let i=0;i<8;i++)poses.push([i*16,8,false]);poses.push([192,8,false],[208,8,false],[224,8,false],[240,8,false],[128,40,true],[160,40,true]);
+const data=[];for(const [sx,sy,wide]of poses)for(let cell=0;cell<2;cell++)for(let plane=0;plane<4;plane++){const a=Buffer.alloc(32);for(let y=0;y<16;y++)for(let x=0;x<16;x++)if(pix(sx+x+(wide?cell*16:0),sy+y+(wide?0:cell*16))&(1<<plane))a[(x<8?0:16)+y]|=1<<(7-x%8);data.push(a);}fs.writeFileSync(b+'player-frames.bin',Buffer.concat(data));
+let colors=Buffer.alloc(512);for(let cell=0;cell<2;cell++)for(let plane=0;plane<4;plane++)colors.fill((1<<plane)|32|(plane?64:0),(cell*4+plane)*16,(cell*4+plane+1)*16);fs.readFileSync(b+'hud-colors.bin').copy(colors,8*16,11*16,31*16);fs.writeFileSync(b+'player-colors.bin',colors);
